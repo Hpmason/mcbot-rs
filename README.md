@@ -1,22 +1,30 @@
 # mcbot-rs
-Discord bot for displaying
+Discord bot for displaying info of a minecraft server
 ## Usage
-mcbot-rs supports the following commands:
+The main feature of the bot is displaying player count in the bot's discord presence. 
+mcbot-rs also supports the following command:
 - !mc_info
   - Replies with info about the server, such as players logged on
-## Setup
-mc-rs requires the environmental variable `MC_BOT_TOK`, which is a discord bot API token.
 
-#### Setting environment variables
-##### Windows Powershell
+## Setup
+xkcdbot-rs requires 2 environmental variables tokens/keys.
+- `MC_BOT_TOK`
+  - Discord API bot token. See steps below on obtain this token
+- `MC_BOT_ADDR`
+  - The minecraft server address to link the bot to.
+- Optional `MC_BOT_PORT`
+  - Port of the minecraft server, if the env variable is not set, it will use the default minecraft port of 25565
+
+### Running
 ```
-$Env:TOKEN_NAME="TOKEN_KEY"
+docker build -t mcbot .
 ```
-##### Linux/Unix/Mac
+
 ```
-export TOKEN_NAME="TOKEN_KEY"
+docker run --rm -e MC_BOT_TOK="your_bot_token_here" -e MC_BOT_ADDR="mc.example.com" --name mcbot mcbot
 ```
-#### MC_BOT_TOK
+
+### MC_BOT_TOK
 This token is required in order for the program to communicate with discord via a bot.
 
 You can get this token from https://discord.com/developers/applications.
@@ -28,14 +36,6 @@ Steps are:
 5. Add this as an environment variable under the name `MC_BOT_TOK`
 6. Under `OAuth2` create an OAuth url with the scope of `bot` and the permission to send messages
     - In order to add the bot to your disord server, open this link and discord will walk you through adding the bot
-
-### Instalation
-You can run the bot 3 ways:
-- Install via `cargo install --git https://github.com/Hpmason/mcbot-rs` and then run with `mcbot-rs` command
-- Download release executable
-- Build from source
-  - git clone this repo
-  - run `cargo run` or build then run with `cargo build`
 
 # Contributing
  I'm always open to pull requests and suggestions
