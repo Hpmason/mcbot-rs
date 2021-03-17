@@ -15,13 +15,15 @@ mcbot-rs requires 2 environmental variables tokens/keys.
 - Optional `MC_BOT_PORT`
   - Port of the minecraft server, if the env variable is not set, it will use the default minecraft port of 25565
 
+Once you have these variables, update the `.env` file with the values.
 ### Running
+Build image
 ```
 docker build -t mcbot .
 ```
-
+Bun built image
 ```
-docker run --rm -e MC_BOT_TOK="your_bot_token_here" -e MC_BOT_ADDR="mc.example.com" --name mcbot mcbot
+docker run --rm --env-file .env --name mcbot mcbot
 ```
 
 ### MC_BOT_TOK
