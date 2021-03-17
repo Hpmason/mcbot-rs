@@ -7,7 +7,7 @@ mcbot-rs also supports the following command:
   - Replies with info about the server, such as players logged on
 
 ## Setup
-xkcdbot-rs requires 2 environmental variables tokens/keys.
+mcbot-rs requires 2 environmental variables tokens/keys.
 - `MC_BOT_TOK`
   - Discord API bot token. See steps below on obtain this token
 - `MC_BOT_ADDR`
