@@ -75,9 +75,19 @@ impl EventHandler for Handler {
             let result = get_status(&ADDR, *PORT).await;
             match result {
                 Ok(status) => {
-                    let act = Activity::playing(
-                        format!("Minecraft w/{} players", status.players.online).as_str(),
-                    );
+                    let act;
+                    if status.players.online > 0 && status.players.online <= 2 {
+                        let mut precense = String::from("w/");
+                        for player in status.players.sample.unwrap() {
+                            precense = format!("{} {},", precense, player.name);
+                        }
+
+                        act = Activity::playing(precense.as_str());
+                    }
+                    else {
+                        act = Activity::playing(format!("w/{} players", status.players.online).as_str());
+                    }
+                    
                     ctx.set_presence(Some(act), OnlineStatus::Online).await;
                 }
                 Err(e) => println!("Error getting status: {}", e.to_string()),
