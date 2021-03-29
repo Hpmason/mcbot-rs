@@ -1,10 +1,11 @@
-ARG APP=mcbot-rs
-FROM rust:latest AS builder
 
+FROM rust:latest AS builder
+ARG APP=mcbot-rs
 WORKDIR /usr/src/${APP}
 COPY . .
-RUN cargo install --path .
+RUN cargo build --release
 
 FROM debian:buster-slim 
-COPY --from=builder /usr/local/cargo/bin/${APP} /usr/local/bin/${APP}
+ARG APP=mcbot-rs
+COPY --from=builder /usr/src/${APP}/target/release/${APP} /usr/local/bin/${APP}
 CMD ["mcbot-rs"]
