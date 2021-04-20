@@ -9,6 +9,11 @@ edition = "2018"
 [dependencies]
 serenity = "0.9.0"
 tokio = "0.2.0"
-async-minecraft-ping = "0.2.1"
+
+# Waiting on https://github.com/jsvana/async-minecraft-ping/pull/4 
+# see https://github.com/jsvana/async-minecraft-ping/issues/3 for details
+# async-minecraft-ping = "0.2.1"
+async-minecraft-ping = {git = "https://github.com/Hpmason/async-minecraft-ping", branch = "master"}
+
 anyhow = "1.0"
 lazy_static = "1.4"
