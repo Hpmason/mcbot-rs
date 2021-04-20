@@ -90,8 +90,6 @@ impl EventHandler for Handler {
                     ctx.set_presence(Some(act), OnlineStatus::Online).await;
                 }
                 Err(e) =>  {
-                    // get_status failed, try a query
-                    let result = get_status(&ADDR, *PORT).await;
                     let act = Activity::listening("To connect back to the server");
                     println!("{}", e);
                     ctx.set_presence(Some(act), OnlineStatus::Idle).await;
