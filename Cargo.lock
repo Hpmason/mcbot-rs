@@ -16,8 +16,9 @@ checksum = "28b2cd92db5cbd74e8e5028f7e27dd7aa3090e89e4f2a197cc7c8dfb69c7063b"
 
 [[package]]
 name = "async-minecraft-ping"
-version = "0.2.1"
-source = "git+https://github.com/Hpmason/async-minecraft-ping?branch=master#e0d59c69ed05ccdc9746862bd8b58f767b9bc33a"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7090db36f285095db21817d55f42fc0f8547c682606ffed6cacd1764c58bba33"
 dependencies = [
  "anyhow",
  "async-trait",
