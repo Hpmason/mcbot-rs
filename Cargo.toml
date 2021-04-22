@@ -1,9 +1,14 @@
 [package]
 name = "mcbot-rs"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Mason Ginter <mason@dagint.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
+description = "Discord bot for displaying the status of your minecraft server"
+readme = "README.md"
+repository = "https://github.com/Hpmason/mcbot-rs"
+keywords = ["discord", "minecraft", "bot"]
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
