@@ -60,6 +60,31 @@ async fn my_help(
     let _ = help_commands::with_embeds(ctx, msg, args, help_options, groups, owners).await;
     Ok(())
 }
+fn get_activity(status: StatusResponse) -> Activity {
+    // If there is a player list in response
+    if let Some(players) = status.players.sample {
+        // If no players online
+        if players.len() == 0 {
+            return Activity::playing("alone with 0 players");
+        }
+        // If there are 3 or less players, display player names
+        if players.len() <= 3 {
+            let comma_players: String = players
+                .into_iter()
+                .map(|a| a.name + ", ")
+                .collect();
+            
+            let presence = format!("w/ {}", &comma_players);
+            return Activity::playing(&presence);
+        }
+        // If more than 3 players, just display number of players
+        else {
+            return Activity::playing(&format!("w/ {} players", players.len()));
+        }
+    }
+    // If no players found in response, expect there to be just 0 players
+    return Activity::playing("alone with 0 players");
+}
 
 #[group]
 #[commands(mc_info)]
@@ -73,29 +98,11 @@ impl EventHandler for Handler {
 
         loop {
             let result = get_status(&ADDR, *PORT).await;
-            match result {
-                Ok(status) => {
-                    let act = if status.players.online > 0 && status.players.online <= 2 {
-                        let mut precense = String::from("w/");
-                        for player in status.players.sample.unwrap() {
-                            precense = format!("{} {},", precense, player.name);
-                        }
-
-                        Activity::playing(precense.as_str())
-                    }
-                    else {
-                        Activity::playing(format!("w/{} players", status.players.online).as_str())
-                    };
-                    
-                    ctx.set_presence(Some(act), OnlineStatus::Online).await;
-                }
-                Err(e) =>  {
-                    let act = Activity::listening("To connect back to the server");
-                    println!("{}", e);
-                    ctx.set_presence(Some(act), OnlineStatus::Idle).await;
-                },
-            }
-
+            let act = match result {
+                Ok(status) => get_activity(status),
+                Err(_e) => Activity::playing("with some errors"),
+            };
+            ctx.set_presence(Some(act), OnlineStatus::Online).await;
             delay_for(Duration::from_millis(REFRESH_TIME)).await;
         }
     }
