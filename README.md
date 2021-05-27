@@ -21,7 +21,7 @@ Build image
 ```
 docker build -t mcbot .
 ```
-Bun built image
+Run built image
 ```
 docker run --rm --env-file .env --name mcbot mcbot
 ```
