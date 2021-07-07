@@ -5,7 +5,6 @@ use serenity::framework::standard::*;
 use serenity::framework::standard::macros::*;
 use serenity::model::prelude::*;
 
-
 use tokio::time::{sleep, Duration};
 
 
@@ -52,6 +51,7 @@ impl EventHandler for Handler {
                 Err(e) => {
                     println!("Error: {}", e);
                     Activity::playing("with some errors") 
+
                 },
             };
             ctx.set_presence(Some(act), OnlineStatus::Online).await;
