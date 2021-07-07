@@ -20,7 +20,7 @@ use anyhow::Result;
 
 use async_minecraft_ping::{ConnectionConfig, StatusResponse};
 
-use tokio::time::{delay_for, Duration};
+use tokio::time::{sleep, Duration};
 
 
 use crate::config::*;
@@ -100,10 +100,13 @@ impl EventHandler for Handler {
             let result = get_status(&ADDR, *PORT).await;
             let act = match result {
                 Ok(status) => get_activity(status),
-                Err(_e) => Activity::playing("with some errors"),
+                Err(e) => {
+                    println!("Error: {}", e.to_string());
+                    Activity::playing("with some errors")
+                },
             };
             ctx.set_presence(Some(act), OnlineStatus::Online).await;
-            delay_for(Duration::from_millis(REFRESH_TIME)).await;
+            sleep(Duration::from_millis(REFRESH_TIME)).await;
         }
     }
 }
