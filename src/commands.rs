@@ -20,7 +20,7 @@ async fn info_default(ctx: &Context, msg: &Message) -> CommandResult {
 }
 
 #[command]
-#[usage("<address>")]
+#[usage("[address]")]
 #[description("Gets server info from server")]
 #[num_args(1)]
 async fn info_by_address(ctx: &Context, msg: &Message, mut args: Args) -> CommandResult {
@@ -53,7 +53,7 @@ async fn info_by_address(ctx: &Context, msg: &Message, mut args: Args) -> Comman
 }
 
 #[command]
-#[usage("<address> <port>")]
+#[usage("[address] [port]")]
 #[description("Gets server info from server")]
 #[max_args(2)]
 async fn info(ctx: &Context, msg: &Message, mut args: Args) -> CommandResult {
