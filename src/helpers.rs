@@ -7,8 +7,12 @@ pub async fn get_status(server_addr: &str, port: u16) -> Result<StatusResponse> 
     let mut config = ConnectionConfig::build(server_addr.to_string());
     config = config.with_port(port);
 
-    let mut connection = config.connect().await?;
-    Ok(connection.status().await?)
+    let result = config
+        .connect()
+        .await?
+        .status()
+        .await?;
+    Ok(result)
 }
 
 pub fn get_activity(status: StatusResponse) -> Activity {
