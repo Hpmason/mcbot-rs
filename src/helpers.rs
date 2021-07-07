@@ -2,7 +2,7 @@ use async_minecraft_ping::{ConnectionConfig, StatusResponse};
 use serenity::model::prelude::Activity;
 
 use anyhow::Result;
-
+/// Get status using server_addr and port
 pub async fn get_status(server_addr: &str, port: u16) -> Result<StatusResponse> {
     let mut config = ConnectionConfig::build(server_addr.to_string());
     config = config.with_port(port);
@@ -14,7 +14,7 @@ pub async fn get_status(server_addr: &str, port: u16) -> Result<StatusResponse> 
         .await?;
     Ok(result)
 }
-
+/// Get discord activity from StatusResponse
 pub fn get_activity(status: StatusResponse) -> Activity {
     // If there is a player list in response
     if let Some(players) = status.players.sample {
