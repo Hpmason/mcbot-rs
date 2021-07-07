@@ -2,21 +2,19 @@
 use serenity::framework::standard::StandardFramework;
 use serenity::Client;
 
-mod handler;
-use handler::*;
-mod config;
-use config::*;
+use mcbot_rs::handler::*;
+use mcbot_rs::config::*;
 
 #[tokio::main]
 async fn main() {
     let framework = StandardFramework::new()
         .configure(|c| c.prefix("!"))
+        .help(&MY_HELP)
         // The `#[group]` (and similarly, `#[command]`) macro generates static instances
         // containing any options you gave it. For instance, the group `name` and its `commands`.
         // Their identifiers, names you can use to refer to these instances in code, are an
         // all-uppercased version of the `name` with a `_GROUP` suffix appended at the end.
-        .group(&GENERAL_GROUP)
-        .help(&MY_HELP);
+        .group(&INFO_GROUP);
 
     // Create a new instance of the Client, logging in as a bot. This will
     // automatically prepend your bot token with "Bot ", which is a requirement
