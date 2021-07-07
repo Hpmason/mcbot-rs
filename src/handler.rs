@@ -16,7 +16,7 @@ use serenity::{
     },
 };
 
-use tokio::time::{delay_for, Duration};
+use tokio::time::{sleep, Duration};
 
 
 use crate::config::*;
@@ -61,7 +61,7 @@ impl EventHandler for Handler {
                 },
             };
             ctx.set_presence(Some(act), OnlineStatus::Online).await;
-            delay_for(Duration::from_millis(REFRESH_TIME)).await;
+            sleep(Duration::from_millis(REFRESH_TIME)).await;
         }
     }
 }
