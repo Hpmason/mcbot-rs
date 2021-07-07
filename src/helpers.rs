@@ -4,12 +4,14 @@ use serenity::model::prelude::Activity;
 use anyhow::Result;
 /// Get status using server_addr and port
 pub async fn get_status(server_addr: &str, port: u16) -> Result<StatusResponse> {
-    let mut config = ConnectionConfig::build(server_addr.to_string());
-    config = config.with_port(port);
+    let config = ConnectionConfig::build(server_addr.to_string())
+        .with_port(port);
 
-    let result = config
+    let mut conn = config
         .connect()
-        .await?
+        .await?;
+        
+    let result = conn
         .status()
         .await?;
     Ok(result)
@@ -39,4 +41,22 @@ pub fn get_activity(status: StatusResponse) -> Activity {
     }
     // If no players found in response, expect there to be just 0 players
     return Activity::playing("alone with 0 players");
+}
+
+pub fn generate_message(status: StatusResponse) -> String {
+    println!("{} of  {}", status.players.online, status.players.max);
+
+    let mut msg = format!("Server info: {} players online", status.players.online);
+    if let Some(players) = status.players.sample {
+        let name_vec: Vec<_> = players.into_iter().map(|i| i.name).collect();
+        msg = format!("{}\nPlayers: {:?}", msg, name_vec);
+    }
+    msg
+}
+
+pub fn status_or_error_message(res: Result<StatusResponse>) -> String {
+    match res {
+        Ok(status) => generate_message(status),
+        Err(e) => format!("Error getting server info: {}", e),
+    }
 }

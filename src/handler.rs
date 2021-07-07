@@ -28,8 +28,7 @@ async fn my_help(
     new_options.strikethrough_commands_tip_in_dm = None;
     new_options.strikethrough_commands_tip_in_guild = None;
 
-    let help = help_commands::with_embeds(ctx, msg, args, &new_options, groups, owners).await;
-    println!("{:?}", help);
+    let _help = help_commands::with_embeds(ctx, msg, args, &new_options, groups, owners).await;
     Ok(())
 }
 
@@ -46,7 +45,6 @@ impl EventHandler for Handler {
     async fn ready(&self, ctx: Context, ready: Ready) {
         println!("{} is connected!", ready.user.name);
         println!("Using addr: {}:{}", *ADDR, *PORT);
-
         loop {
             let result = get_status(&ADDR, *PORT).await;
             let act = match result {
