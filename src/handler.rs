@@ -49,12 +49,16 @@ pub struct Handler;
 impl EventHandler for Handler {
     async fn ready(&self, ctx: Context, ready: Ready) {
         println!("{} is connected!", ready.user.name);
+        println!("Using addr: {}:{}", *ADDR, *PORT);
 
         loop {
             let result = get_status(&ADDR, *PORT).await;
             let act = match result {
                 Ok(status) => get_activity(status),
-                Err(_e) => Activity::playing("with some errors"),
+                Err(e) => {
+                    println!("Error: {}", e);
+                    Activity::playing("with some errors") 
+                },
             };
             ctx.set_presence(Some(act), OnlineStatus::Online).await;
             delay_for(Duration::from_millis(REFRESH_TIME)).await;
