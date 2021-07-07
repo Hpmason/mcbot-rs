@@ -14,7 +14,7 @@ async fn main() {
         // containing any options you gave it. For instance, the group `name` and its `commands`.
         // Their identifiers, names you can use to refer to these instances in code, are an
         // all-uppercased version of the `name` with a `_GROUP` suffix appended at the end.
-        .group(&GENERAL_GROUP);
+        .group(&INFO_GROUP);
 
     // Create a new instance of the Client, logging in as a bot. This will
     // automatically prepend your bot token with "Bot ", which is a requirement

@@ -1,20 +1,10 @@
 use std::collections::HashSet;
 
-use serenity::{
-    async_trait,
-    client::{Context, EventHandler},
-    framework::standard::{
-        help_commands,
-        macros::{group, help},
-        Args, CommandGroup, CommandResult, HelpOptions,
-    },
-    model::{
-        channel::Message,
-        gateway::{Activity, Ready},
-        id::UserId,
-        user::OnlineStatus,
-    },
-};
+use serenity::{async_trait, prelude::*};
+use serenity::framework::standard::*;
+use serenity::framework::standard::macros::*;
+use serenity::model::prelude::*;
+
 
 use tokio::time::{sleep, Duration};
 
@@ -34,7 +24,12 @@ async fn my_help(
     groups: &[&'static CommandGroup],
     owners: HashSet<UserId>,
 ) -> CommandResult {
-    let _ = help_commands::with_embeds(ctx, msg, args, help_options, groups, owners).await;
+    let mut new_options = help_options.clone();
+    new_options.strikethrough_commands_tip_in_dm = None;
+    new_options.strikethrough_commands_tip_in_guild = None;
+
+    let help = help_commands::with_embeds(ctx, msg, args, &new_options, groups, owners).await;
+    println!("{:?}", help);
     Ok(())
 }
 
@@ -42,7 +37,8 @@ async fn my_help(
 #[group]
 #[commands(info)]
 /// Get server info
-struct General;
+struct Info;
+/// Discord handler
 pub struct Handler;
 
 #[async_trait]
