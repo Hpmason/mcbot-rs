@@ -1,5 +1,9 @@
 # mcbot-rs
 Discord bot for displaying info of a minecraft server
+Docker image can be found on my [GitHub Container Registry](https://github.com/Hpmason/mcbot-rs/pkgs/container/mcbot-rs)
+```
+docker pull ghcr.io/hpmason/mcbot-rs:latest
+```
 ## Usage
 The main feature of the bot is displaying player count in the bot's discord presence. 
 mcbot-rs also supports the following command:
@@ -17,7 +21,10 @@ mcbot-rs requires 2 environmental variables tokens/keys.
 
 Once you have these variables, update the `.env` file with the values.
 ### Running
-Build image
+
+
+
+If you want to build the image manually, you can do so by running the following commands:
 ```
 docker build -t mcbot .
 ```
