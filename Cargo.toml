@@ -1,6 +1,6 @@
 [package]
 name = "mcbot-rs"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Mason Ginter <mason@dagint.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
@@ -14,7 +14,7 @@ keywords = ["discord", "minecraft", "bot"]
 
 [dependencies]
 serenity = "0.10"
-tokio = { version = "1.8", features = ["macros", "rt-multi-thread", "time"] }
+tokio = { version = "1.10", features = ["macros", "rt-multi-thread", "time"] }
 
 async-minecraft-ping = "0.4"
 
