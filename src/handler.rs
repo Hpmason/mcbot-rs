@@ -1,18 +1,15 @@
 use std::collections::HashSet;
 
-use serenity::{async_trait, prelude::*};
-use serenity::framework::standard::*;
 use serenity::framework::standard::macros::*;
+use serenity::framework::standard::*;
 use serenity::model::prelude::*;
+use serenity::{async_trait, prelude::*};
 
 use tokio::time::{sleep, Duration};
 
-
+use crate::commands::*;
 use crate::config::*;
 use crate::helpers::*;
-use crate::commands::*;
-
-
 
 #[help]
 async fn my_help(
@@ -30,7 +27,6 @@ async fn my_help(
     let _help = help_commands::with_embeds(ctx, msg, args, &new_options, groups, owners).await;
     Ok(())
 }
-
 
 #[group]
 #[commands(info)]
@@ -50,9 +46,8 @@ impl EventHandler for Handler {
                 Ok(status) => get_activity(status),
                 Err(e) => {
                     println!("Error: {}", e);
-                    Activity::playing("with some errors") 
-
-                },
+                    Activity::playing("with some errors")
+                }
             };
             ctx.set_presence(Some(act), OnlineStatus::Online).await;
             sleep(Duration::from_millis(REFRESH_TIME)).await;
