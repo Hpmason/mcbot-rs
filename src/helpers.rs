@@ -15,7 +15,7 @@ pub fn get_activity(status: StatusResponse) -> Activity {
     // If there is a player list in response
     if let Some(players) = status.players.sample {
         // If no players online
-        if players.len() == 0 {
+        if players.is_empty() {
             return Activity::playing("alone with 0 players");
         }
         // If there are 3 or less players, display player names
@@ -31,7 +31,7 @@ pub fn get_activity(status: StatusResponse) -> Activity {
         }
     }
     // If no players found in response, expect there to be just 0 players
-    return Activity::playing("alone with 0 players");
+    Activity::playing("alone with 0 players")
 }
 
 pub fn generate_message(status: StatusResponse) -> String {

@@ -13,7 +13,7 @@ use crate::helpers::*;
 #[description("Gets server info from server")]
 #[max_args(2)]
 async fn info(ctx: &Context, msg: &Message, mut args: Args) -> CommandResult {
-    let addr = args.single::<String>().unwrap_or(ADDR.to_string());
+    let addr = args.single::<String>().unwrap_or_else(|_| ADDR.to_string());
     let port = args.single::<u16>().unwrap_or(*PORT);
 
     // Get status response from server
