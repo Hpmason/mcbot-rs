@@ -1,6 +1,6 @@
 [package]
 name = "mcbot-rs"
-version = "0.2.1"
+version = "0.3.0"
 authors = ["Mason Ginter <mason@dagint.com>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
