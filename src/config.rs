@@ -2,7 +2,6 @@ use std::env;
 
 use lazy_static::lazy_static;
 
-
 pub const REFRESH_TIME: u64 = 3000;
 
 lazy_static! {

@@ -1,18 +1,13 @@
-use async_minecraft_ping::{ConnectionConfig, StatusResponse, ServerError};
+use async_minecraft_ping::{ConnectionConfig, ServerError, StatusResponse};
 use serenity::model::prelude::Activity;
 
 /// Get status using server_addr and port
 pub async fn get_status(server_addr: &str, port: u16) -> Result<StatusResponse, ServerError> {
-    let config = ConnectionConfig::build(server_addr.to_string())
-        .with_port(port);
+    let config = ConnectionConfig::build(server_addr.to_string()).with_port(port);
 
-    let conn = config
-        .connect()
-        .await?;
-        
-    let ping_conn = conn
-        .status()
-        .await?;
+    let conn = config.connect().await?;
+
+    let ping_conn = conn.status().await?;
     Ok(ping_conn.status)
 }
 /// Get discord activity from StatusResponse
@@ -25,11 +20,8 @@ pub fn get_activity(status: StatusResponse) -> Activity {
         }
         // If there are 3 or less players, display player names
         if players.len() <= 3 {
-            let comma_players: String = players
-                .into_iter()
-                .map(|a| a.name + ", ")
-                .collect();
-            
+            let comma_players: String = players.into_iter().map(|a| a.name + ", ").collect();
+
             let presence = format!("w/ {}", &comma_players);
             return Activity::playing(&presence);
         }

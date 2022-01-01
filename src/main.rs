@@ -1,9 +1,8 @@
-
 use serenity::framework::standard::StandardFramework;
 use serenity::Client;
 
-use mcbot_rs::handler::*;
 use mcbot_rs::config::*;
+use mcbot_rs::handler::*;
 
 #[tokio::main]
 async fn main() {
