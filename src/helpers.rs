@@ -1,20 +1,19 @@
-use async_minecraft_ping::{ConnectionConfig, StatusResponse};
+use async_minecraft_ping::{ConnectionConfig, StatusResponse, ServerError};
 use serenity::model::prelude::Activity;
 
-use anyhow::Result;
 /// Get status using server_addr and port
-pub async fn get_status(server_addr: &str, port: u16) -> Result<StatusResponse> {
+pub async fn get_status(server_addr: &str, port: u16) -> Result<StatusResponse, ServerError> {
     let config = ConnectionConfig::build(server_addr.to_string())
         .with_port(port);
 
-    let mut conn = config
+    let conn = config
         .connect()
         .await?;
         
-    let result = conn
+    let ping_conn = conn
         .status()
         .await?;
-    Ok(result)
+    Ok(ping_conn.status)
 }
 /// Get discord activity from StatusResponse
 pub fn get_activity(status: StatusResponse) -> Activity {
@@ -54,7 +53,7 @@ pub fn generate_message(status: StatusResponse) -> String {
     msg
 }
 
-pub fn status_or_error_message(res: Result<StatusResponse>) -> String {
+pub fn status_or_error_message(res: Result<StatusResponse, ServerError>) -> String {
     match res {
         Ok(status) => generate_message(status),
         Err(e) => format!("Error getting server info: {}", e),

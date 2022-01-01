@@ -2,7 +2,7 @@
 name = "mcbot-rs"
 version = "0.2.1"
 authors = ["Mason Ginter <mason@dagint.com>"]
-edition = "2018"
+edition = "2021"
 license = "MIT OR Apache-2.0"
 description = "Discord bot for displaying the status of your minecraft server"
 readme = "README.md"
@@ -14,9 +14,15 @@ keywords = ["discord", "minecraft", "bot"]
 
 [dependencies]
 serenity = "0.10"
-tokio = { version = "1.10", features = ["macros", "rt-multi-thread", "time"] }
 
-async-minecraft-ping = "0.4"
+async-minecraft-ping = "0.8"
 
-anyhow = "1.0"
 lazy_static = "1.4"
+
+[dependencies.tokio]
+version = "1.15"
+features = [
+    "macros", 
+    "rt-multi-thread", 
+    "time"
+    ]
