@@ -1,5 +1,6 @@
-FROM rust:alpine AS builder
 ARG APP=mcbot-rs
+FROM rust:alpine AS builder
+ARG APP
 
 WORKDIR /usr/src/${APP}
 COPY . .
@@ -7,6 +8,6 @@ RUN apk add alpine-sdk
 RUN cargo build --release
 
 FROM alpine 
-ARG APP=mcbot-rs
+ARG APP
 COPY --from=builder /usr/src/${APP}/target/release/${APP} /usr/local/bin/${APP}
-CMD ["mcbot-rs"]
+CMD "mcbot-rs"
